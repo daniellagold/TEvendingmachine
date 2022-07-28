@@ -4,8 +4,11 @@ import com.techelevator.models.VendingMachineItems;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.techelevator.ui.UserOutput.displayHomeScreen;
 
 public class VendingMachine {
 
@@ -14,18 +17,38 @@ public class VendingMachine {
     public void run() {
         FileReader fileReader = new FileReader();
         this.vendingMachineItemList = fileReader.readFile();
-        System.out.println(vendingMachineItemList.get(1).getPrice());
+        System.out.println(vendingMachineItemList.size());
         while(true) {
-            UserOutput.displayHomeScreen();
+            displayHomeScreen();
             String choice = UserInput.getHomeScreenOption();
             System.out.println(choice);
             if(choice.equals("display")) {
-                // display the items
-            }
-            else if(choice.equals("purchase")) {
+                UserOutput.displayItems(vendingMachineItemList);
+            } else if(choice.equals("purchase")) {
+                purchaseMenu();
                 // make a purchase
+            } else if(choice.equals("exit")) {
+                // good bye
+                break;
             }
-            else if(choice.equals("exit")) {
+        }
+    }
+
+    public void purchaseMenu() {
+        while (true ){
+            UserOutput.displayPurchaseScreen();
+            String choice = UserInput.getPurchaseScreenOption();
+
+            if(choice.equals("money")) {
+                // display the items
+                UserInput.feedingMoney();
+                purchaseMenu();
+            }
+            else if(choice.equals("select")) {
+                // choose a movie and display the price
+
+            }
+            else if(choice.equals("finish")) {
                 // good bye
                 break;
             }
