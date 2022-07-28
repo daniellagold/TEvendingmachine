@@ -1,6 +1,11 @@
 package com.techelevator.ui;
 
+import com.techelevator.application.FileReader;
+import com.techelevator.models.VendingMachineItems;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -10,7 +15,9 @@ import java.util.Scanner;
  */
 public class UserInput {
     private static Scanner scanner = new Scanner(System.in);
-    private int moneyAmount = 0;
+    private static BigDecimal moneyAmount = new BigDecimal("0");
+    private static List<VendingMachineItems> vendingMachineList;
+
 
 
 
@@ -42,11 +49,22 @@ public class UserInput {
         }
 
     }
+    public BigDecimal feedingMoney() {
+        System.out.println("Please enter only whole dollar amounts.");
+        System.out.println("Please enter the amount of money you want to use: ");
+
+        String moneyString = scanner.nextLine();
+        int money = Integer.parseInt(moneyString);
+        BigDecimal bigDecimal= BigDecimal.valueOf(money);
+
+        moneyAmount = moneyAmount.add(bigDecimal);
+
+        return moneyAmount;
+    }
 
 
     public static String getPurchaseScreenOption() {
-        int moneyTotal = 0;
-//        moneyTotal += feedingMoney();
+
         System.out.println("What would you like to do?");
         System.out.println();
 
@@ -55,14 +73,14 @@ public class UserInput {
         System.out.println("F) Finish Transaction");
 
         System.out.println();
-        System.out.println("Current Money Provided: " + moneyTotal);
+        System.out.println("Current Money Provided: " + moneyAmount);
 
         System.out.println();
         System.out.print("Please select an option: ");
 
         String selectedOption = scanner.nextLine();
         String option = selectedOption.trim().toLowerCase();
-//        System.out.println("option = " + option);
+
         if (option.equals("m")) {
             return "money";
         }
@@ -77,14 +95,22 @@ public class UserInput {
         }
     }
 
-    public static int feedingMoney() {
-        System.out.println("Please enter only whole dollar amounts.");
-        System.out.println("Please enter the amount of money you want to use: ");
 
-        String moneyString = scanner.nextLine();
-         int money = Integer.parseInt(moneyString);
 
-        return money;
+    public static void selectItem(){
+        System.out.println("Please enter the slot number of the item you want to purchase: ");
+        String slotNumber = scanner.nextLine();
+        FileReader fileReader = new FileReader();
+        vendingMachineList = fileReader.readFile();
+
+        for (int i = 0; i < vendingMachineList.size(); i++) {
+            if (slotNumber.equals(vendingMachineList.get(i).getSlot())){
+                System.out.println(vendingMachineList.get(i).getItemName() + " " + vendingMachineList.get(i).getPrice());
+                moneyAmount = moneyAmount.subtract(vendingMachineList.get(i).getPrice());
+                  }
+
+        }
+
     }
 }
 

@@ -13,6 +13,7 @@ import static com.techelevator.ui.UserOutput.displayHomeScreen;
 public class VendingMachine {
 
     private List<VendingMachineItems> vendingMachineItemList;
+    private UserInput userInput= new UserInput();
 
     public void run() {
         FileReader fileReader = new FileReader();
@@ -41,12 +42,12 @@ public class VendingMachine {
 
             if(choice.equals("money")) {
                 // display the items
-                UserInput.feedingMoney();
-                purchaseMenu();
+                userInput.feedingMoney();
+
             }
             else if(choice.equals("select")) {
-                // choose a movie and display the price
-
+                UserOutput.displayItems(vendingMachineItemList);
+                UserInput.selectItem();
             }
             else if(choice.equals("finish")) {
                 // good bye
