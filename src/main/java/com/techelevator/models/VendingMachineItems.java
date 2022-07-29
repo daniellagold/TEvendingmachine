@@ -61,7 +61,9 @@ public class VendingMachineItems {
         this.quantity = quantity;
     }
 
-
+    public String getSound() {
+        return "";
+    }
 
 }
 

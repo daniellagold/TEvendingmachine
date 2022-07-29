@@ -12,7 +12,7 @@ public class FileReader {
     public List<VendingMachineItems> readFile() {
 
         List<VendingMachineItems> vendingMachineList = new ArrayList<>();
-        File file = new File("catering.csv");
+        File file = new File("vending.csv");
 
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNextLine()) {

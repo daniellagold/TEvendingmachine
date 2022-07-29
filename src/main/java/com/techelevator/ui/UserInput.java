@@ -1,8 +1,7 @@
 package com.techelevator.ui;
 
 import com.techelevator.application.FileReader;
-import com.techelevator.models.Drink;
-import com.techelevator.models.VendingMachineItems;
+import com.techelevator.models.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,10 +15,6 @@ import java.util.Scanner;
  */
 public class UserInput {
     private static Scanner scanner = new Scanner(System.in);
-    private static BigDecimal moneyAmount = new BigDecimal("0");
-    private static List<VendingMachineItems> vendingMachineList;
-
-
 
 
     public static String getHomeScreenOption() {
@@ -50,21 +45,37 @@ public class UserInput {
         }
 
     }
-    public BigDecimal feedingMoney() {
-        System.out.println("Please enter only whole dollar amounts.");
+    public static BigDecimal feedingMoney(BigDecimal moneyAmount) {
+        System.out.println("Please enter only whole dollar amounts. ($1, $5, $10, $20)");
         System.out.println("Please enter the amount of money you want to use: ");
 
         String moneyString = scanner.nextLine();
-        int money = Integer.parseInt(moneyString);
-        BigDecimal bigDecimal= BigDecimal.valueOf(money);
+        if(moneyString.equals("1") || moneyString.equals("5") || moneyString.equals("10") || moneyString.equals("20")) {
+            int money = Integer.parseInt(moneyString);
+            BigDecimal bigDecimal= BigDecimal.valueOf(money);
+            moneyAmount = moneyAmount.add(bigDecimal);
+        } else {
+            System.out.println("That wasn't a valid amount\n");
 
-        moneyAmount = moneyAmount.add(bigDecimal);
+        }
+
+        return moneyAmount;
+    }
+
+    public static BigDecimal feedingMoneyTwo(BigDecimal moneyAmount) {
+
+        String moneyString = scanner.nextLine();
+        if(moneyString.equals("1") || moneyString.equals("5") || moneyString.equals("10") || moneyString.equals("20")) {
+            int money = Integer.parseInt(moneyString);
+            BigDecimal bigDecimal= BigDecimal.valueOf(money);
+            moneyAmount = moneyAmount.add(bigDecimal);
+        }
 
         return moneyAmount;
     }
 
 
-    public static String getPurchaseScreenOption() {
+    public static String getPurchaseScreenOption(BigDecimal moneyAmount) {
 
         System.out.println("What would you like to do?");
         System.out.println();
@@ -97,20 +108,10 @@ public class UserInput {
     }
 
 
-
-    public static void selectItem(){
+    public static String selectItem() {
         System.out.println("Please enter the slot number of the item you want to purchase: ");
-        String slotNumber = scanner.nextLine();
-        FileReader fileReader = new FileReader();
-        vendingMachineList = fileReader.readFile();
-
-        for (int i = 0; i < vendingMachineList.size(); i++) {
-            if (slotNumber.equals(vendingMachineList.get(i).getSlot())){
-                System.out.println(vendingMachineList.get(i).getItemName() + " " + vendingMachineList.get(i).getPrice());
-                moneyAmount = moneyAmount.subtract(vendingMachineList.get(i).getPrice());
-                  }
-
-        }
+        String slotNumber = scanner.nextLine().toUpperCase();
+        return slotNumber;
 
     }
 }
