@@ -45,33 +45,30 @@ public class UserInput {
         }
 
     }
+
+    private static String moneyString = "";
+
     public static BigDecimal feedingMoney(BigDecimal moneyAmount) {
         System.out.println("Please enter only whole dollar amounts. ($1, $5, $10, $20)");
         System.out.println("Please enter the amount of money you want to use: ");
+        moneyString = scanner.nextLine();
 
-        String moneyString = scanner.nextLine();
         if(moneyString.equals("1") || moneyString.equals("5") || moneyString.equals("10") || moneyString.equals("20")) {
             int money = Integer.parseInt(moneyString);
             BigDecimal bigDecimal= BigDecimal.valueOf(money);
             moneyAmount = moneyAmount.add(bigDecimal);
         } else {
             System.out.println("That wasn't a valid amount\n");
-
         }
-
         return moneyAmount;
     }
 
-    public static BigDecimal feedingMoneyTwo(BigDecimal moneyAmount) {
-
-        String moneyString = scanner.nextLine();
-        if(moneyString.equals("1") || moneyString.equals("5") || moneyString.equals("10") || moneyString.equals("20")) {
-            int money = Integer.parseInt(moneyString);
-            BigDecimal bigDecimal= BigDecimal.valueOf(money);
-            moneyAmount = moneyAmount.add(bigDecimal);
-        }
-
-        return moneyAmount;
+    public static String feedingMoneyTwo(BigDecimal moneyAmount) {
+//        moneyString = BigDecimal.valueOf(0.00);
+//        int money = Integer.parseInt(moneyString);
+//        BigDecimal bigDecimal= BigDecimal.valueOf(money);
+//        moneyAmount = bigDecimal;
+        return moneyString + ".00";
     }
 
 
@@ -85,7 +82,7 @@ public class UserInput {
         System.out.println("F) Finish Transaction");
 
         System.out.println();
-        System.out.println("Current Money Provided: " + moneyAmount);
+        System.out.println("Current Money Provided: $" + moneyAmount);
 
         System.out.println();
         System.out.print("Please select an option: ");
