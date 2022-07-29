@@ -7,6 +7,7 @@ import com.techelevator.ui.UserOutput;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.techelevator.ui.UserOutput.displayHomeScreen;
@@ -53,13 +54,14 @@ public class VendingMachine {
             if(choice.equals("money")) {
                 // display the items
                 currentMoneyProvided = userInput.feedingMoney(currentMoneyProvided);
-               logger.write(LocalDateTime.now() + "Money Fed: $" + userInput.feedingMoneyTwo(BigDecimal.valueOf(0)) + "       $" + currentMoneyProvided );
+               logger.write(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS) + "\t MONEY FED:\t\t\t\t\t$" + userInput.feedingMoneyTwo(currentMoneyProvided) + "\t$" + currentMoneyProvided );
 
             }
             else if(choice.equals("select")) {
                 UserOutput.displayItems(vendingMachineItemList);
                 String slotNumber =  UserInput.selectItem();
                 currentMoneyProvided = vendingItem(slotNumber, currentMoneyProvided);
+
             }
             else if(choice.equals("finish")) {
 
@@ -78,6 +80,8 @@ public class VendingMachine {
         int changeDimes =0;
         int changeNickels=0;
         int changePennies = 0;
+
+        logger.write(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS) + "\t CHANGE GIVEN:\t\t\t\t$" + moneyAmount + "\t$" + zero);
 
        while (moneyAmount.compareTo(zero)==1){
            if (moneyAmount.compareTo(BigDecimal.valueOf(0.99)) == 1){
@@ -100,7 +104,8 @@ public class VendingMachine {
       }
         System.out.println(changeAmount+ changeDollars + " dollars, " + changeQuarters + " quarters, " +
                 changeDimes + " dimes, " + changeNickels+ " nickels, " + changePennies + " pennies. ");
-       return moneyAmount;
+
+        return moneyAmount;
 
     }
 
@@ -113,8 +118,12 @@ public class VendingMachine {
                     if (vendingMachineItemList.get(i).getQuantity()> 0) {
                         System.out.println(vendingMachineItemList.get(i).getItemName() + " " + vendingMachineItemList.get(i).getPrice());
                         System.out.println(vendingMachineItemList.get(i).getSound());
-                        moneyAmount = moneyAmount.subtract(vendingMachineItemList.get(i).getPrice());
+
                         vendingMachineItemList.get(i).setQuantity(vendingMachineItemList.get(i).getQuantity() - 1);
+                        logger.write(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS) + "\t" + vendingMachineItemList.get(i).getItemName() + "\t\t"
+                                + vendingMachineItemList.get(i).getSlot() + "\t\t$" + moneyAmount + "\t$" + moneyAmount.subtract(vendingMachineItemList.get(i).getPrice()));
+
+                        moneyAmount = moneyAmount.subtract(vendingMachineItemList.get(i).getPrice());
 
                     } else {
                         System.out.println("The item you selected is out of stock");
