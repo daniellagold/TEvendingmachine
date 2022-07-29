@@ -11,12 +11,14 @@ public class VendingMachineItems {
     private String type;
     private int quantity;
 
+
     public VendingMachineItems(String slot, String itemName, String price, String type) {
         this.slot = slot;
         this.itemName = itemName;
         this.price = new BigDecimal(price);
         this.type = type;
         this.quantity = 6;
+
     }
 
     public String getSlot() {
