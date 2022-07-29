@@ -29,7 +29,7 @@ bin/
 obj/
 packages/
 .vs/
-
+Audit.txt
 .DS_Store
 node_modules
 /dist
