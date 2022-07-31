@@ -57,7 +57,7 @@ public class VendingMachine {
             if (choice.equals("money")) {
                 // display the items
                 currentMoneyProvided = userInput.feedingMoney(currentMoneyProvided);
-                logger.write(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS) + "\t MONEY FED:\t\t\t\t\t$" + userInput.feedingMoneyTwo(currentMoneyProvided) + "\t$" + currentMoneyProvided);
+                logger.write(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS) + "\t MONEY FED:\t\t\t\t$" + userInput.feedingMoneyTwo() + "\t$" + currentMoneyProvided);
 
             } else if (choice.equals("select")) {
                 UserOutput.displayItems(vendingMachineItemList);

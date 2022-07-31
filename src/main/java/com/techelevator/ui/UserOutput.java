@@ -5,13 +5,6 @@ import com.techelevator.models.VendingMachineItems;
 import java.util.List;
 
 public class UserOutput {
-    public static void displayMessage(String message) {
-        System.out.println();
-        System.out.println(message);
-        System.out.println();
-    }
-
-
 
     public static void displayItems(List<VendingMachineItems> vendingList) {
         System.out.println();

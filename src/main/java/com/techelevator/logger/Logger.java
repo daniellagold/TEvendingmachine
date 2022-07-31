@@ -8,9 +8,9 @@ public class Logger implements Closeable {
     private PrintWriter writer;  // writer is an instantiation of the PrintWriter class
 
     public Logger(String pathName){
-        // need to initialize our attributes
+
         this.logFile = new File(pathName);
-        // business logic -- if logFile doesn't exist, open it to write
+
         if (!logFile.exists()){
             try {
                 this.writer = new PrintWriter(this.logFile);
@@ -18,7 +18,7 @@ public class Logger implements Closeable {
                 e.printStackTrace();
             }
         }
-        // if it does, open it to append  -- need a FileWriter object passed into PrintWriter
+
         else {
             try {
                 this.writer = new PrintWriter(new FileWriter(this.logFile, true));
@@ -30,7 +30,7 @@ public class Logger implements Closeable {
 
     public void write(String logMessage){
         this.writer.println(logMessage);
-        this.writer.flush(); // send the bytes to the file right away!
+        this.writer.flush();
     }
     @Override
     public void close() throws IOException {

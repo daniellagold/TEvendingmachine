@@ -63,11 +63,8 @@ public class UserInput {
         return moneyAmount;
     }
 
-    public static String feedingMoneyTwo(BigDecimal moneyAmount) {
-//        moneyString = BigDecimal.valueOf(0.00);
-//        int money = Integer.parseInt(moneyString);
-//        BigDecimal bigDecimal= BigDecimal.valueOf(money);
-//        moneyAmount = bigDecimal;
+    public static String feedingMoneyTwo() {
+
         return moneyString + ".00";
     }
 
